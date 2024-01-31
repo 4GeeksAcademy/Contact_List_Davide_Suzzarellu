@@ -2,23 +2,92 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+				{ title: "FIRST", background: "white", initial: "white" },
+				{ title: "SECOND", background: "white", initial: "white" }
+			],
+			agendas: [],
+			users: [],
+			selectedAgenda: null,
+			selectedContact: null,
+
 		},
+
 		actions: {
+
+			getAgendas: async () => {
+				const url = "https://playground.4geeks.com/apis/fake/contact/agenda"
+				const options = {
+					method: "GET"
+				}
+				const response = await fetch(url, options)
+				if (!response.ok) {
+					return response.status
+				}
+				const data = await response.json()
+				setStore({ agendas: data })
+				console.log(data)
+			},
+
+			getContact: async (user) => {
+				const url = `https://playground.4geeks.com/apis/fake/contact/agenda/${user}`
+				const options = {
+					method: "GET"
+				}
+				const response = await fetch(url, options)
+				if (!response.ok) {
+					return response.status
+				}
+				const data = await response.json()
+				setStore({ users: data })
+			},
+
+			deleteContact: async (id) => {
+				const url = `https://playground.4geeks.com/apis/fake/contact/${id}`
+				const options = {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+				const response = await fetch(url, options)
+				if (!response.ok) {
+					return response.status
+				}
+				const { users } = getStore();
+				const updatedUsers = users.filter((user) => user.id !== id);
+				setStore({ users: updatedUsers });
+			},
+
+			deleteAllContact: async (agenda) => {
+				const url = `https://playground.4geeks.com/apis/fake/contact/agenda/${agenda}`
+				const options = {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+				const response = await fetch(url, options)
+				if (!response.ok) {
+					return response.status
+				}
+				const { users } = getStore();
+				const updatedUsers = users.filter((user) => user.agenda_slug !== agenda);
+				setStore({ users: updatedUsers });
+			},
+
+			setSelectedAgenda: (agenda) => {
+				setStore({ selectedAgenda: agenda });
+			},
+
+			setSelectedContact: (contact) => {
+				setStore({ selectedContact: contact });
+			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
+
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
