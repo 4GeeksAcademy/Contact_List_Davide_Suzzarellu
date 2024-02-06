@@ -15,29 +15,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 
 			getAgendas: async () => {
-				const cachedData = localStorage.getItem('agendas');
-				if (cachedData) {
-					setStore({ agendas: JSON.parse(cachedData) });
-					return;
-				}
 				const response = await fetch("https://playground.4geeks.com/apis/fake/contact/agenda")
 				if (!response.ok) return response.status
 				const data = await response.json()
 				setStore({ agendas: data })
-				localStorage.setItem('agendas', JSON.stringify(data));
 			},
 
 			getContact: async (user) => {
-				const cachedData = localStorage.getItem('users');
-				if (cachedData) {
-					setStore({ users: JSON.parse(cachedData) });
-					return;
-				}
 				const response = await fetch(`https://playground.4geeks.com/apis/fake/contact/agenda/${user}`)
 				if (!response.ok) return response.status
 				const data = await response.json()
 				setStore({ users: data })
-				localStorage.setItem('users', JSON.stringify(data));
 			},
 
 			deleteContact: async (id) => {
