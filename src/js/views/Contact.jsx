@@ -48,10 +48,10 @@ export const Contact = () => {
             </section>
 
             <section className="row d-flex align-items-center">
-                <ul className="list-group">
+                <ul className="list-group d-flex justify-content-center mx-1">
                     {store.users.map((user) => (
                         <li key={user.id} className={`${selectedAgenda ? "list-group-item border" : "d-none"}`}>
-                            <div className="row">
+                            <div className="row d-flex flex-row justify-content-between">
                                 <div className="col-md-8">
                                     <h3>{user.full_name}</h3>
 
@@ -72,7 +72,7 @@ export const Contact = () => {
                                 </div>
 
                                 <div className="col-md-4 d-flex align-items-center justify-content-end">
-                                    <button onClick={() => handleEditContact(user.id)} className="btn bg-white">
+                                    <button onClick={() => handleEditContact(user)} className="btn bg-white">
                                         <i className="fa-solid fa-pen"></i>
                                     </button>
                                     <button className="btn bg-white" onClick={() => handleDeleteContact(user.id)}>

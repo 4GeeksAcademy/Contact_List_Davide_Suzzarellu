@@ -76,8 +76,8 @@ export const Demo = () => {
 					<input name="address" type="text" value={inputs.address || ""} onChange={handleChange} className="form-control" placeholder="Address:"></input>
 				</label>
 
-				<label className="form-label">Agenda:
-					<input name="agenda" type="text" value={inputs.agenda} onChange={handleChange} className="form-control" placeholder={selectedAgenda !== null ? selectedAgenda : "Agenda:"} disabled={selectedAgenda !== null} />
+				<label className="form-label">Agenda asignada:
+					<input name="agenda" type="text" value={inputs.agenda} onChange={handleChange} className="form-control" placeholder={!selectedAgenda ? "No hay ninguna agenda asignada, crea una" : selectedAgenda} disabled={selectedAgenda} />
 				</label>
 
 				<footer className="d-flex flex-row gap-2 justify-content-end">

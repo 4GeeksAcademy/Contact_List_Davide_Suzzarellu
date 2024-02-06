@@ -21,7 +21,7 @@ export const EditContact = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		putContact(selectedContact);
+		putContact(selectedContact.id);
 		setInputs({
 			full_name: "",
 			address: "",
@@ -50,8 +50,6 @@ export const EditContact = () => {
 		};
 
 		const response = await fetch(url, options);
-		console.log(response);
-
 		if (!response.ok) {
 			return response.status;
 		}
@@ -66,19 +64,19 @@ export const EditContact = () => {
 			<h1 className="col-auto p-3">Edit Contact:</h1>
 			<form onSubmit={handleSubmit} id="editForm" className="d-flex flex-column col-8 gap-2 col-3 border p-3">
 				<label className="form-label">Full Name:
-					<input onChange={handleChange} name="full_name" type="text" className="form-control" placeholder="Full name"></input>
+					<input onChange={handleChange} name="full_name" type="text" className="form-control" placeholder={!selectedContact.full_name ? "Full Name:" : selectedContact.full_name}></input>
 				</label>
 
 				<label className="form-label">Email:
-					<input onChange={handleChange} name="email" type="text" className="form-control" placeholder="Email"></input>
+					<input onChange={handleChange} name="email" type="text" className="form-control" placeholder={selectedContact ? selectedContact.email : "Email"}></input>
 				</label>
 
 				<label className="form-label">Phone:
-					<input onChange={handleChange} type="tel" name="phone" className="form-control" placeholder="Phone"></input>
+					<input onChange={handleChange} type="tel" name="phone" className="form-control" placeholder={selectedContact ? selectedContact.phone : "Phone"}></input>
 				</label>
 
 				<label className="form-label">Address:
-					<input onChange={handleChange} name="address" type="text" className="form-control" placeholder="Address"></input>
+					<input onChange={handleChange} name="address" type="text" className="form-control" placeholder={selectedContact ? selectedContact.address : "Address"}></input>
 				</label>
 				<footer className="d-flex flex-row gap-2 justify-content-end">
 					<button onClick={handleSubmit} className="btn btn-primary me-2">Change</button>
