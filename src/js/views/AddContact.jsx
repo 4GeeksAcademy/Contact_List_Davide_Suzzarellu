@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../../styles/demo.css";
 
+
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
 	const { selectedAgenda } = store;

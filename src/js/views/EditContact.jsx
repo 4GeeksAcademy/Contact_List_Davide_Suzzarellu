@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
+
 export const EditContact = () => {
 	const { store, actions } = useContext(Context);
 	const { selectedAgenda } = store;
@@ -10,10 +11,10 @@ export const EditContact = () => {
 	const navigate = useNavigate();
 
 	const [inputs, setInputs] = useState({
-		full_name: "",
-		address: "",
-		phone: "",
-		email: ""
+		full_name: selectedContact.full_name || "",
+		address: selectedContact.address || "",
+		phone: selectedContact.phone || "",
+		email: selectedContact.email || ""
 	});
 
 	const handleChange = (e) => setInputs((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -68,15 +69,15 @@ export const EditContact = () => {
 				</label>
 
 				<label className="form-label">Email:
-					<input onChange={handleChange} name="email" type="text" className="form-control" placeholder={selectedContact ? selectedContact.email : "Email"}></input>
+					<input onChange={handleChange} name="email" type="text" className="form-control" placeholder={!selectedContact.email ? "Email" : selectedContact.email}></input>
 				</label>
 
 				<label className="form-label">Phone:
-					<input onChange={handleChange} type="tel" name="phone" className="form-control" placeholder={selectedContact ? selectedContact.phone : "Phone"}></input>
+					<input onChange={handleChange} type="tel" name="phone" className="form-control" placeholder={!selectedContact.phone ? "Phone" : selectedContact.phone}></input>
 				</label>
 
 				<label className="form-label">Address:
-					<input onChange={handleChange} name="address" type="text" className="form-control" placeholder={selectedContact ? selectedContact.address : "Address"}></input>
+					<input onChange={handleChange} name="address" type="text" className="form-control" placeholder={!selectedContact.address ? "Address" : selectedContact.address}></input>
 				</label>
 				<footer className="d-flex flex-row gap-2 justify-content-end">
 					<button onClick={handleSubmit} className="btn btn-primary me-2">Change</button>
